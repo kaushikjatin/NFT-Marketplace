@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './CreateToken.styles.css';
-import Web3 from 'web3'
 import {pinataApiKey, pinataSecretApiKey,url} from '../../pinataApi'
 
 class CreateToken extends Component
@@ -8,22 +7,24 @@ class CreateToken extends Component
     constructor(props)
     {
      super(props);
+     console.log("These are porps",props);
      this.productName= React.createRef();
      this.productimage = React.createRef();
-     this.State={
+     this.state={
                  file:null,
-                 account:null,
-                 contract:null
+                 account:props.account,
+                 contract:props.contract
                };
      this.handleChange.bind(this);
    }
- 
-   async componentWillMount() 
-   {
-     await this.loadWeb3()
-     await this.loadBlockchainData()
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+     contract:nextProps.contract,
+     account:nextProps.account
+    };
    }
- 
+  
 
    handleChange(event) { this.setState({name:event.target.value})};
  
@@ -43,6 +44,7 @@ class CreateToken extends Component
                          }
                      });
        console.log(res.data);
+       console.log("zdjhsdkvbk",this.state.contract);
        this.setState({image: `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`});
        this.state.contract.options.gas= 500000;
  
@@ -59,34 +61,6 @@ class CreateToken extends Component
      }
  
  
- 
- 
-   async loadWeb3() 
-   {
-     if (window.ethereum) 
-     {
-       window.web3 = new Web3(window.ethereum)
-       await window.ethereum.enable()
-     }
-     else if (window.web3) 
-       window.web3 = new Web3(window.web3.currentProvider)
-     else 
-       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-       
-   }
- 
-   async loadBlockchainData() 
-   {
-     const myContractJson = require('../../abis/nftContract.json')
-     const web3 = window.web3
-     const accounts = await web3.eth.getAccounts()
-     this.setState({ account: accounts[0] })
-     console.log("account no is", this.state.account)
-     const contract = new web3.eth.Contract(myContractJson, "0x0E87182fF9ee1ecc2f65C88052df0c91888F5Da4");
-     this.setState({ contract })
-   }
- 
- 
    uploadFile = (event) => {
      event.preventDefault()
      this.setState({file: event.target.files[0]})
@@ -99,7 +73,6 @@ class CreateToken extends Component
   {
     return (
       <div>
-
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col d-flex text-center">
