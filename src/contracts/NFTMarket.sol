@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity >=0.4.22 <0.9.0;
 
 //import "https://github.com/OpenZeppelin/openzeppelin-contracts/tree/docs-org/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -244,7 +244,7 @@ contract nftContract is ERC721{
     function mint(
         uint256 _clothType,
         string memory _name,
-        string memory _cid,
+        string memory _cid
     ) public {
         require(isExist[_cid] == false, "Item link should be unique, for you to mint it");
         require(msg.sender ==owner, "Only owner can of this contract can mint, you are trying to some fraud.");
@@ -260,7 +260,7 @@ contract nftContract is ERC721{
                     address(0x0)
                 )
             );
-        uint256 _id=nfts.length -1;
+        uint256 _id=nfts.length;
         _mint(msg.sender, _id);
         isExist[_cid] = true;
         
