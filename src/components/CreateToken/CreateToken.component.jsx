@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CreateToken.styles.css';
 import Web3 from 'web3'
-import {pinataApiKey, pinataSecretApiKey,url} from '../..//pinataApi'
+import {pinataApiKey, pinataSecretApiKey,url} from '../../pinataApi'
 
 class CreateToken extends Component
 {
