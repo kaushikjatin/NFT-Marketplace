@@ -40,7 +40,7 @@ class App extends Component
      const myContractJson = require('./abis/nftContract.json')
      const web3 = window.web3
      const accounts = await web3.eth.getAccounts()
-     const contract = new web3.eth.Contract(myContractJson, "0x0E87182fF9ee1ecc2f65C88052df0c91888F5Da4");
+     const contract = new web3.eth.Contract(myContractJson, "0xc237507E63dE9A592902CB340778Ff55E82D6615");
      this.setState({ contract :contract , account:accounts[0]})
    }
 
