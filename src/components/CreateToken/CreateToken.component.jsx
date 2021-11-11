@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import './CreateToken.styles.css';
-import {pinataApiKey, pinataSecretApiKey,url} from '../../pinataApi'
+import './CreateToken.styles.scss';
+import {pinataApiKey, pinataSecretApiKey,url} from '../../pinataApi';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 
 class CreateToken extends Component
 {
@@ -52,10 +54,11 @@ class CreateToken extends Component
        {
          const transaction = await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
          console.log("token id generated is :", transaction)
+         window.alert("Asset Minted Successfully!")
        }
        else 
        {
-         console.log('error occured while uploading the file');
+        window.alert("There was some problem in minting asset , try after some time")
        }
        
      }
@@ -72,46 +75,30 @@ class CreateToken extends Component
   render() 
   {
     return (
-      <div>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                    {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                    <h1>upload Image here </h1>
-                    <form onSubmit={(event) => {
+        <div className='file_form'>
+            <Form onSubmit={(event) => {
                         event.preventDefault()
                         const name = this.productName.value
                         const image = this.state.file
                         this.onSubmit(name, image)}}>
-                                <div className="form-group mr-sm-2">
-                                    <input
-                                    id="productName"
-                                    type="text"
-                                    ref={(input) => { this.productName = input }}
-                                    className="form-control"
-                                    placeholder="Asset Name"
-                                    required />
-                                </div>
-                            <div className="form-group mr-sm-2">
-                                    <input
-                                    id="productImage"
-                                    type="file"
-                                    onChange={this.uploadFile}
-                                    ref={(input) => { this.productImage = input }}
-                                    className="form-control"
-                                    placeholder="Asset Image"
-                                    required />
-                                </div>
-                                <button type="submit" className="btn btn-primary">Add Asset</button>
-                    </form>
-              </div>
-            </main>
-          </div>
+
+                <Form.Group className="mb-3" controlId="floatingInput">
+                    <Form.Label>Asset Name</Form.Label>
+                    <Form.Control type="text" ref={(input) => { this.productName = input }} placeholder="Enter the name of asset" name='video_name' required/>
+                </Form.Group>
+
+                <Form.Group controlId="formFileLg" className="mb-3">
+                    <Form.Label>Upload A Image</Form.Label>
+                    <Form.Control name='file' onChange={this.uploadFile}  ref={(input) => { this.productImage = input }}  accept='image/*' type="file" size="lg" required/>
+                </Form.Group>
+
+                <div className="d-grid gap-2">
+                    <Button variant="primary" type="submit" className='submit_button'>
+                        Submit
+                    </Button>
+                </div>
+          </Form>
         </div>
-
-
-      </div>
     );
   }
 
