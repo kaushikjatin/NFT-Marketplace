@@ -1,13 +1,14 @@
 import {Route,Routes} from 'react-router-dom';
 import CreateToken from './components/CreateToken/CreateToken.component';
 import Navbar from './components/NavBar/NavBar.component';
+import MarketPlace from "./containers/marketPlace.jsx";
 import React ,{Component}from 'react';
 import Web3 from 'web3'
 import './App.css';
 
 class App extends Component
 {
-  constructor(props)
+  constructor(props)   
   {
     super(props)
     this.state={
@@ -51,7 +52,7 @@ class App extends Component
             <Navbar></Navbar>
             <Routes>
                 <Route exact path='/' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
-                <Route exact path='/all_tokens' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
+                <Route  path='/all_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account}></MarketPlace>} ></Route>
                 <Route exact path='/your_tokens' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
             </Routes>
            </div>

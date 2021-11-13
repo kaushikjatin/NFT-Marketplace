@@ -9,7 +9,6 @@ class CreateToken extends Component
     constructor(props)
     {
      super(props);
-     console.log("These are porps",props);
      this.productName= React.createRef();
      this.productimage = React.createRef();
      this.state={
@@ -52,8 +51,7 @@ class CreateToken extends Component
  
        if(res.data && res.data.IpfsHash)
        {
-         const transaction = await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
-         console.log("token id generated is :", transaction)
+         await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
          window.alert("Asset Minted Successfully!")
        }
        else 
