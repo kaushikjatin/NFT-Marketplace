@@ -3,7 +3,7 @@ import CreateToken from './components/CreateToken/CreateToken.component';
 import Navbar from './components/NavBar/NavBar.component';
 import MarketPlace from "./containers/marketPlace.jsx";
 import React ,{Component}from 'react';
-import Web3 from 'web3'
+import Web3 from 'web3';
 import './App.css';
 
 class App extends Component
@@ -12,8 +12,14 @@ class App extends Component
   {
     super(props)
     this.state={
-      contract:null
+      contract:null,
+      account:null,
+      data:null
     }
+  }
+
+  handlestate=(name , value)=>{
+    this.setState({[name]:value});
   }
 
   async componentDidMount() 
@@ -33,7 +39,6 @@ class App extends Component
        window.web3 = new Web3(window.web3.currentProvider)
      else 
        window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-       
    }
 
    async loadBlockchainData() 
@@ -42,7 +47,8 @@ class App extends Component
      const web3 = window.web3
      const accounts = await web3.eth.getAccounts()
      const contract = new web3.eth.Contract(myContractJson, "0x910901799dfC01286373178Ae840D4e944E9194a");
-     this.setState({ contract :contract , account:accounts[0]})
+     const Data= await contract.methods.alltokens().call();
+     this.setState({ contract :contract , account:accounts[0], data:Data})
    }
 
   render()
@@ -52,8 +58,9 @@ class App extends Component
             <Navbar></Navbar>
             <Routes>
                 <Route exact path='/' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
-                <Route  path='/all_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account}></MarketPlace>} ></Route>
+                <Route  path='/all_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account} data={this.state.data}></MarketPlace>} ></Route>
                 <Route exact path='/your_tokens' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
+                <Route exact path='/mytoken/:index' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
             </Routes>
            </div>
            )

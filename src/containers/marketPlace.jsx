@@ -19,24 +19,18 @@ class MarketPlace extends Component {
 static getDerivedStateFromProps(nextProps) {
   return {
    contract:nextProps.contract,
-   account:nextProps.account
+   account:nextProps.account,
+   data:nextProps.data
   };
  }
 
  
-  loaddata= async ()=>{
-    if(this.state.contract!=null && this.state.data==null)
-    {
-      const Data= await this.state.contract.methods.alltokens().call();
-      this.setState({data:Data})
-    }
-  }
+  
 
 
 
   render()
   {
-    this.loaddata();
     return (
       <Container maxWidth="md">
         {
