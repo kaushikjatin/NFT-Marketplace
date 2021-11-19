@@ -2,6 +2,7 @@ import {Route,Routes} from 'react-router-dom';
 import CreateToken from './components/CreateToken/CreateToken.component';
 import Navbar from './components/NavBar/NavBar.component';
 import MarketPlace from "./containers/marketPlace.jsx";
+import ItemPage from './components/ItemPage/ItemPage.component';
 import React ,{Component}from 'react';
 import Web3 from 'web3';
 import './App.css';
@@ -11,15 +12,20 @@ class App extends Component
   constructor(props)   
   {
     super(props)
+    this.handlestateofApp.bind(this);
     this.state={
-      contract:null,
+      data:[],
       account:null,
-      data:null
+      contract:null
     }
   }
 
-  handlestate=(name , value)=>{
+  handlestateofApp=(name , value)=>{
+    console.log("Function called");
+    console.log("hbkbdadbakd",this);
+    console.log("chsiuv",this.state);
     this.setState({[name]:value});
+    console.log("sacha",this.state);
   }
 
   async componentDidMount() 
@@ -43,10 +49,11 @@ class App extends Component
 
    async loadBlockchainData() 
    {
+     console.log("called here");
      const myContractJson = require('./abis/nftContract.json')
      const web3 = window.web3
      const accounts = await web3.eth.getAccounts()
-     const contract = new web3.eth.Contract(myContractJson, "0x910901799dfC01286373178Ae840D4e944E9194a");
+     const contract = new web3.eth.Contract(myContractJson,"0x98E374aEcF04EF48218971069C4f1b85B1D20F1E");
      const Data= await contract.methods.alltokens().call();
      this.setState({ contract :contract , account:accounts[0], data:Data})
    }
@@ -57,10 +64,10 @@ class App extends Component
             <div className="App">
             <Navbar></Navbar>
             <Routes>
-                <Route exact path='/' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
-                <Route  path='/all_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account} data={this.state.data}></MarketPlace>} ></Route>
-                <Route exact path='/your_tokens' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
-                <Route exact path='/mytoken/:index' element={<CreateToken contract={this.state.contract} account={this.state.account}/>}></Route>
+                <Route exact path='/' element={<CreateToken contract={this.state.contract} account={this.state.account} handlestateofApp={this.handlestateofApp}/>}></Route>
+                <Route exact path='/all_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account} data={this.state.data}></MarketPlace>} ></Route>
+                <Route exact path='/your_tokens' element={<MarketPlace contract={this.state.contract} account={this.state.account} data={this.state.data.filter((nft)=>{return nft.owner===this.state.account})}></MarketPlace>}></Route>
+                <Route exact path='/all_tokens/:index' element={<ItemPage contract={this.state.contract} account={this.state.account} data={this.state.data} handlestateofApp={this.handlestateofApp}/>}></Route>
             </Routes>
            </div>
            )

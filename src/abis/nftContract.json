@@ -111,6 +111,59 @@
 				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isOnSale",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sellPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBiddable",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxBid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "maxBidder",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "token_id",
+						"type": "uint256"
+					}
+				],
+				"indexed": false,
+				"internalType": "struct nftContract.nftData[]",
+				"name": "nfts",
+				"type": "tuple[]"
 			}
 		],
 		"name": "nftTransaction",
@@ -169,6 +222,16 @@
 						"internalType": "address",
 						"name": "maxBidder",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "token_id",
+						"type": "uint256"
 					}
 				],
 				"internalType": "struct nftContract.nftData[]",
@@ -386,6 +449,16 @@
 				"internalType": "address",
 				"name": "maxBidder",
 				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "token_id",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -572,6 +645,49 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenByIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenOfOwnerByIndex",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
 			}
@@ -589,49 +705,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "tokensofOwner",
+		"name": "totalSupply",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "cid",
-						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "isOnSale",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "sellPrice",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "isBiddable",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maxBid",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "maxBidder",
-						"type": "address"
-					}
-				],
-				"internalType": "struct nftContract.nftData[]",
+				"internalType": "uint256",
 				"name": "",
-				"type": "tuple[]"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -682,19 +761,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawBid",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

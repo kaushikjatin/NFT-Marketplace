@@ -53,7 +53,7 @@ const MarketCardList = (props) => {
               sellPrice={cardItem.sellPrice}
               isBiddable={cardItem.isBiddable}
               maxBid={cardItem.maxBid}
-              index={index}
+              index={cardItem.token_id}
             />
           </ImageListItem>
         );

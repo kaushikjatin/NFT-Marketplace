@@ -56,7 +56,7 @@ const MyTooltip = withStyles((theme) => ({
   tooltip: {fontSize: 20},
 }))(Tooltip);
 
-const MarketCard = ({name,cid,isOnSale,sellPrice,isBiddable,maxBid,}) => {
+const MarketCard = ({name,cid,isOnSale,sellPrice,isBiddable,maxBid,index}) => {
   const classes = useStyles();
 
   return (
@@ -66,7 +66,7 @@ const MarketCard = ({name,cid,isOnSale,sellPrice,isBiddable,maxBid,}) => {
           <CardActionArea
             disableRipple
             onClick={() => {
-              window.location.href ="https://gateway.pinata.cloud/ipfs/"+cid ;
+              window.location.href ="http://localhost:3000/all_tokens/" +index ;
             }}
           >
             <Grid container>

@@ -51,7 +51,9 @@ class CreateToken extends Component
  
        if(res.data && res.data.IpfsHash)
        {
-         await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
+         let Data=await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
+         Data=Data.events.nftTransaction.returnValues["nfts"]
+         this.props.handlestateofApp("data",Data);
          window.alert("Asset Minted Successfully!")
        }
        else 
