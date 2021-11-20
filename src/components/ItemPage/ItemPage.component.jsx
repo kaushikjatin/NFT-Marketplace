@@ -1,12 +1,8 @@
 import React from "react";
 import Figure from 'react-bootstrap/Figure';
 import { Container } from "react-bootstrap";
-import Stack from 'react-bootstrap/Stack';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import OwnerComponent from "../OwnerComponent/OwnerComponent.components";
-
-
+import ViewerComponent from "../ViewerComponent/ViewerComponent.jsx";
 import './ItemPage.styles.scss';
 
 class ItemPage extends React.Component
@@ -55,29 +51,7 @@ class ItemPage extends React.Component
                 (this.state.data.owner===this.state.account)?(
                   <OwnerComponent data={this.state.data} handlestateofApp={this.props.handlestateofApp} contract={this.state.contract}  account={this.state.account}></OwnerComponent>
                 ):( 
-                 <Stack direction="horizontal" gap={3}>
-                    {
-                      (this.state.data.isOnSale)?(
-                        <div className="bg-light border">
-                          <Stack direction="horizontal" gap={3}>
-                                <div>Sell Price :: 0.1eth </div>
-                                <Button variant="secondary" className="ms-auto">Buy Item</Button>
-                          </Stack>
-                      </div>
-                      ):(
-                        <div className="bg-light border ms-auto">
-                            <Stack direction="horizontal" gap={3}>
-                                <div>Max Bid :: {this.state.data.maxBid}</div>
-                            </Stack>
-                            <br/><br/>
-                            <Stack direction="horizontal" gap={3}>
-                                <Form.Control className="me-auto" type="number" placeholder="Your Bid Price..." />
-                                  <Button variant="secondary" className="ms-auto">Place Your Bid</Button>
-                            </Stack>
-                        </div>
-                      )
-                    }
-                  </Stack>
+                  <ViewerComponent data={this.state.data} handlestateofApp={this.props.handlestateofApp} contract={this.state.contract}  account={this.state.account}></ViewerComponent>
                 )
               }
 
