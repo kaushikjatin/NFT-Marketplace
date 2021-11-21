@@ -21,11 +21,7 @@ class App extends Component
   }
 
   handlestateofApp=(name , value)=>{
-    console.log("Function called");
-    console.log("hbkbdadbakd",this);
-    console.log("chsiuv",this.state);
     this.setState({[name]:value});
-    console.log("sacha",this.state);
   }
 
   async componentDidMount() 
@@ -49,7 +45,6 @@ class App extends Component
 
    async loadBlockchainData() 
    {
-     console.log("called here");
      const myContractJson = require('./abis/nftContract.json')
      const web3 = window.web3
      const accounts = await web3.eth.getAccounts()

@@ -37,6 +37,7 @@ class OwnerComponent extends React.Component
         event.preventDefault();
         let Data=await this.state.contract.methods.putOnSale(this.state.data.token_id,this.state.sellingprice).send({ from:this.state.account });
         Data=Data.events.nftTransaction.returnValues["nfts"]
+        this.setState({sellingprice:null})
         this.props.handlestateofApp("data",Data);
         
     }

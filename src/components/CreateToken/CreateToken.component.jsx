@@ -33,7 +33,6 @@ class CreateToken extends Component
      {
        const FormData = require("form-data");
        const axios = require("axios");
-       console.log("submitting file to ipfs")
        let data = new FormData();
        data.append("file", image);
        const res =  await axios.post(url, data, {
@@ -44,8 +43,6 @@ class CreateToken extends Component
                          pinata_secret_api_key: pinataSecretApiKey,
                          }
                      });
-       console.log(res.data);
-       console.log("zdjhsdkvbk",this.state.contract);
        this.setState({image: `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`});
        this.state.contract.options.gas= 500000;
  
@@ -53,6 +50,7 @@ class CreateToken extends Component
        {
          let Data=await this.state.contract.methods.mint(name, res.data.IpfsHash).send({ from:this.state.account });
          Data=Data.events.nftTransaction.returnValues["nfts"]
+         this.setState({file:null , name:null});
          this.props.handlestateofApp("data",Data);
          window.alert("Asset Minted Successfully!")
        }

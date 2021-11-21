@@ -37,6 +37,7 @@ class ViewerComponent extends React.Component
         event.preventDefault();
         let Data=await this.state.contract.methods.bid(this.state.data.token_id).send({ from:this.state.account,value:this.state.bidprice});
         Data=Data.events.nftTransaction.returnValues["nfts"]
+        this.setState({bidprice:null})
         this.props.handlestateofApp("data",Data);
         
     }
@@ -70,14 +71,18 @@ class ViewerComponent extends React.Component
                 <div className='main_form'>
                     <div>Max Bid :: {this.state.data.maxBid}</div>
                     <br/><br/>
-                    <Form onSubmit={this.handleBidSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Enter Your Bid Price</Form.Label>
-                            <Form.Control className="me-auto" type="number" placeholder="Your Bid Price..." onChange={this.handlechange}/>
-                            <Form.Text className="text-muted">This amount will be deducted from your metamask account</Form.Text>
-                        </Form.Group>
-                        <Button variant="primary" className="ms-auto" type="submit">Place Your Bid</Button>
-                    </Form>
+                    {
+                         (this.state.data.maxBidder===this.state.account)?(<div>You are the max-bidder , won't be able to place bid right now!</div>):(
+                            <Form onSubmit={this.handleBidSubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Enter Your Bid Price</Form.Label>
+                                    <Form.Control className="me-auto" type="number" placeholder="Your Bid Price..." onChange={this.handlechange}/>
+                                    <Form.Text className="text-muted">This amount will be deducted from your metamask account</Form.Text>
+                                </Form.Group>
+                                <Button variant="primary" className="ms-auto" type="submit">Place Your Bid</Button>
+                            </Form>
+                         )
+                    }
                 </div>
             )
         }
